@@ -1,28 +1,22 @@
 const router = require("express").Router();
-// const { Category, Product } = require("../../models");
+const {
+  getAllUser,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+  addFriend,
+  removeFriend,
+} = require("../../controllers/userController");
 
-// The `/api/categories` endpoint
+// Set up GET all and POST at /api/users
+router.route("/").get(getAllUser).post(createUser);
 
-router.get("/", (req, res) => {
-  // find all categories
-  // be sure to include its associated Products
-});
+// Set up GET one, PUT, and DELETE at /api/users/:id
+router.route("/:id").get(getUserById).put(updateUser).delete(deleteUser);
 
-router.get("/:id", (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
-});
+router.route("/:id/friends").post(addFriend);
 
-router.post("/", (req, res) => {
-  // create a new category
-});
-
-router.put("/:id", (req, res) => {
-  // update a category by its `id` value
-});
-
-router.delete("/:id", (req, res) => {
-  // delete a category by its `id` value
-});
+router.route("/:id/friends/:friendId").delete(removeFriend);
 
 module.exports = router;

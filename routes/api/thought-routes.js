@@ -1,28 +1,26 @@
 const router = require("express").Router();
-// const { Category, Product } = require("../../models");
+const {
+  getAllThought,
+  getThoughtById,
+  createThought,
+  updateThought,
+  deleteThought,
+  addReaction,
+  removeReaction,
+} = require("../../controllers/thoughtController");
 
-// The `/api/categories` endpoint
+// Set up GET all and POST at /api/thoughts
+router.route("/").get(getAllThought).post(createThought);
 
-router.get("/", (req, res) => {
-  // find all categories
-  // be sure to include its associated Products
-});
+// Set up GET one, PUT, and DELETE at /api/thoughts/:id
+router
+  .route("/:id")
+  .get(getThoughtById)
+  .put(updateThought)
+  .delete(deleteThought);
 
-router.get("/:id", (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
-});
+router.route("/:id/reactions").post(addReaction);
 
-router.post("/", (req, res) => {
-  // create a new category
-});
-
-router.put("/:id", (req, res) => {
-  // update a category by its `id` value
-});
-
-router.delete("/:id", (req, res) => {
-  // delete a category by its `id` value
-});
+router.route("/:id/reactions/:reactionId").delete(removeReaction);
 
 module.exports = router;
